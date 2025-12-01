@@ -15,6 +15,7 @@ const Topbarber = () => {
             try {
                 const response = await axios.get(`${baseURL}/front/topbarbers.php`);
                 if (response.data && response.data.barbers) {
+                    console.log(response.data.barbers);
                     setBarbers(response.data.barbers);
                 }
             } catch (error) {
