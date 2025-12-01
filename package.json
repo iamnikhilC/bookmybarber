@@ -1,5 +1,5 @@
 {
-  "homepage": "https://github.com/iamnikhilC/bookmybarber.git",
+  "homepage": "https://iamnikhilC.github.io/bookmybarber",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.12.2",
     "framer-motion": "^12.23.24",
+    "gh-pages": "6.3.0",
     "react": "^19.1.1",
     "react-data-table-component": "^7.7.0",
     "react-dom": "^19.1.1",
