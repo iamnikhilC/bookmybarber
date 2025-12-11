@@ -13,6 +13,7 @@ const AdminLayout = () => {
                 <NavBar />
                 <div className="main-container">
                     <Outlet />
+                    <span className="footer">All Rights Reserved by MyBarber</span>
                 </div>
             </main>
         </div>

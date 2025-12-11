@@ -14,6 +14,7 @@ import Customers from './admin/Customer/Customers';
 import EditCustomer from './admin/Customer/EditCustomer';
 import ViewAllBarbers from './customer/ViewAllBarbers';
 import Booking from "./customer/Booking";
+import Bookings from './admin/Bookings';
 // import ProtectedRoute from './front/components/ProtectedRoute';
 import Logout from './front/Logout';
 function App() {
@@ -41,6 +42,7 @@ function App() {
 
 			{/* Customer layout */}
 			<Route path="/" element={<AdminLayout />}>
+				<Route path="bookings" element={<Bookings />} />
 				<Route path="booking/:id" element={<Booking />} />
 				<Route path="add-service" element={<Add />} />
 				

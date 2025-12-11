@@ -33,6 +33,12 @@ const Hero = () => {
                     <Link to="/register" className="bg-red-500 text-white px-4 py-2 rounded">Register</Link>
                     <Link to="/barber-register" className="bg-red-500 text-white px-4 py-2 rounded">Barber Register</Link>
                 </div>
+                <div class="menu-icon" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
             </header>
             <div className="hero-content">
                 <motion.div className={`logo-container ${scrolled ? "scrolled" : ""}`} animate={controls}>
