@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/bookmybarber/static/css/main.7dbae86c.css",
-    "main.js": "/bookmybarber/static/js/main.c3c84392.js",
+    "main.css": "/bookmybarber/static/css/main.4c31b273.css",
+    "main.js": "/bookmybarber/static/js/main.1c1b597d.js",
     "static/js/453.670e15c7.chunk.js": "/bookmybarber/static/js/453.670e15c7.chunk.js",
     "static/media/payment.png": "/bookmybarber/static/media/payment.4b77d54bf81082526202.png",
     "static/media/book.png": "/bookmybarber/static/media/book.2caf16d2984e11a50979.png",
@@ -13,15 +13,14 @@
     "static/media/about-us.webp": "/bookmybarber/static/media/about-us.6aed3f7b7c5654549b64.webp",
     "static/media/hero_banner.jpg": "/bookmybarber/static/media/hero_banner.b045014f428c5260d287.jpg",
     "static/media/logo.png": "/bookmybarber/static/media/logo.01a8fe371dfd9d42515d.png",
-    "static/media/service-card.webp": "/bookmybarber/static/media/service-card.7d9f1d40c64941ae596d.webp",
     "static/media/white-logo.png": "/bookmybarber/static/media/white-logo.f500f00b97a78fdedc17.png",
     "index.html": "/bookmybarber/index.html",
-    "main.7dbae86c.css.map": "/bookmybarber/static/css/main.7dbae86c.css.map",
-    "main.c3c84392.js.map": "/bookmybarber/static/js/main.c3c84392.js.map",
+    "main.4c31b273.css.map": "/bookmybarber/static/css/main.4c31b273.css.map",
+    "main.1c1b597d.js.map": "/bookmybarber/static/js/main.1c1b597d.js.map",
     "453.670e15c7.chunk.js.map": "/bookmybarber/static/js/453.670e15c7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7dbae86c.css",
-    "static/js/main.c3c84392.js"
+    "static/css/main.4c31b273.css",
+    "static/js/main.1c1b597d.js"
   ]
 }
