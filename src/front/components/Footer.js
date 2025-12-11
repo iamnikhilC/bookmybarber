@@ -40,7 +40,7 @@ export default function Footer() {
                 {/* Social Media */}
                 <div>
                     <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
-                    <div className="flex gap-4">
+                    <div className="social-icons">
                         <a href="#" className="p-2 bg-white/10 rounded-full hover:bg-white/20">
                             <Facebook size={20} />
                         </a>

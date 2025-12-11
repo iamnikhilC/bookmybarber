@@ -945,6 +945,11 @@ section.footer .container{
 .footer ul li a:hover {
 	color: var(--primary);
 }
+
+.social-icons{
+	display: flex;
+	gap: 20px;
+}
 @media (max-width:768px){
 	section.footer {
 		padding: 3rem;
