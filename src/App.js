@@ -20,12 +20,13 @@ import Logout from './front/Logout';
 function App() {
 	return (
 		<Routes>
+			<Route path="login" element={<Login />} />
+			<Route path="register" element={<Register />} />
+			<Route path="barber-register" element={<BarberRegister />} />
+			
 			{/* Front layout */}
 			<Route path="/" element={<FrontLayout />}>
 				<Route index element={<Home />} />
-				<Route path="login" element={<Login />} />
-				<Route path="register" element={<Register />} />
-				<Route path="barber-register" element={<BarberRegister />} />
 				<Route path="view-barbers" element={<ViewAllBarbers />} />
 				<Route path="logout" element={<Logout />} />
 			</Route>

@@ -92,7 +92,9 @@ const Topbarber = () => {
                 ) : (
                     <p>Loading top barbers...</p>
                 )}
-                <Link to="/view-barbers" className="bg-red-500 text-white px-4 py-2 rounded">View All</Link>
+            </div>
+            <div className="topbarber-grid">
+            <Link to="/view-barbers" className="btn btn-primary">View All</Link>
             </div>
         </section>
     );

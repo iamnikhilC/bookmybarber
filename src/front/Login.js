@@ -41,6 +41,20 @@ const Login = () => {
 
 	return (
 		<div className="login-container">
+			
+
+			{/* Right Section */}
+			<div className="right-section">
+				
+				<div className="hanging-text">
+					<span>L</span>
+					<span>O</span>
+					<span>G</span>
+					<span>I</span>
+					<span>N</span>
+				</div>
+			</div>
+
 			{/* Left Section */}
 			<div className="left-section">
 				<h2>Welcome Back</h2>
@@ -51,17 +65,6 @@ const Login = () => {
 					<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="input-field" />
 					<button type="submit" className="submit-btn">Login</button>
 				</form>
-			</div>
-
-			{/* Right Section */}
-			<div className="right-section">
-				<div className="hanging-text">
-					<span>L</span>
-					<span>O</span>
-					<span>G</span>
-					<span>I</span>
-					<span>N</span>
-				</div>
 			</div>
 		</div>
 	);
