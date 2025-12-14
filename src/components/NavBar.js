@@ -12,6 +12,7 @@ const NavBar = () => {
                 <span className="navbar-icon">👤</span>
                 <Link className="item-link" to="/logout">Logout</Link>
             </div>
+            
         </div>
     )
 }

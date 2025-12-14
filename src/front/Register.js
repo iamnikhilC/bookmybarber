@@ -50,9 +50,9 @@ const Register = () => {
     }
 
     return (
-        <div className="container">
+        <div className="resigtration container">
             <div className="row">
-            <div className="">
+                <div className="col">
                 <div className="card">
                     <div className="card-header">
                         <h2>
@@ -117,8 +117,8 @@ const Register = () => {
                             <button type="submit">Submit</button>
                         </form>
                     </div >
+                    </div>
                 </div >
-            </div>
             </div>
         </div >
 

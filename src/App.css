@@ -235,6 +235,12 @@ input:focus {
 	color: var(--muted)
 }
 
+@media (max-width:768px){
+	.container {
+		padding: 3rem 1rem;
+	}
+}
+
 
 
 /*================Frontend================== */
@@ -332,7 +338,6 @@ section.hero::after {
 	font-weight: 500;
 }
 
-
 .header .links a:hover {
 	color: var(--primary);
 }
@@ -346,35 +351,50 @@ section.hero::after {
 .menu-icon span {
     width: 28px;
     height: 3px;
-    background: black;
+	border-radius: 10px;
+    background: var(--primary);
 }
+
+
 
 /* Mobile styles */
 @media(max-width: 768px) {
-	.header{
-		width: 100vh;
+	.header {
+		z-index: 4;
 	}
-    .links {
-        display: none;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: white;
-        flex-direction: column;
-        padding: 20px;
-        gap: 20px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
 
-    .links.show {
-        display: flex;
-    }
+	.links {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 352px;
+		height: 100vh;
+		background: #1A1A1A;
+		display: flex;
+		flex-direction: column;
+		padding: 50px 20px 20px;
+		gap: 10px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-    .menu-icon {
-        display: flex;
-    }
+		transform: translateX(100%);
+		opacity: 0;
+		transition: transform 0.4s ease, opacity 0.3s ease;
+	}
+
+	.links.show {
+		transform: translateX(0);
+		opacity: 1;
+	}
+
+	.menu-icon {
+		top: 25px;
+		left: 340px;
+		position: absolute;
+		display: flex;
+		z-index: 5;
+	}
 }
+
 
 .hero-content {
 	/* position: relative; */
@@ -426,6 +446,11 @@ section.hero::after {
 
 	section.hero h2 {
 		font-size: 2.1rem;
+	}
+	.logo.scrolled{		
+		width: 400px !important;
+		height: 140px !important;
+
 	}
 }
 
@@ -972,26 +997,7 @@ section.footer .container{
 	}
 }
 
-
-
-
-
-
-/* Login style  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* =====================Login style====================  */
 /* Container */
 .login-container {
 	display: flex;
@@ -1043,8 +1049,6 @@ section.footer .container{
 	border: 2px solid #ffd54f;
 	background: #fff;
 }
-
-
 
 /* Right section */
 .right-section {
@@ -1099,18 +1103,6 @@ section.footer .container{
 	transition: transform 0.3s ease-in-out;
 }
 
-/* Rope effect
-  .hanging-text span::before {
-	content: '';
-	position: absolute;
-    top: -193px;
-    left: 50%;
-    width: 1px;
-    height: 224px;
-    background: #ccc;
-    transform: translateX(-50%);
-  } */
-
 /* Swing on hover */
 .hanging-text span:hover {
 	cursor: pointer;
@@ -1147,8 +1139,41 @@ section.footer .container{
 		height: 47vh;
 	}
 }
+/* ============================resigtration=========================== */
+.resigtration  .row{
+	margin-bottom: 0;
+}
 
-/* admin CSS */
+.resigtration  .col{
+	padding: 0;
+}
+
+@media (max-width:768px){
+	.resigtration .card {
+		padding: 10px 30px;
+	}
+	.resigtration  .row{
+		display: block;
+		margin-bottom: 0;
+	}
+	
+	.resigtration  .col{
+		padding: 0;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ====================admin panel====================== */
 .admin-container {
 	display: flex;
 	height: 100vh;
@@ -1186,6 +1211,7 @@ section.footer .container{
 	height: 100vh;
 	background: linear-gradient(180deg, #fff 30%, #fff8e1 70%);
 	border-radius: 0 25px 25px 0px;
+	transition: transform 0.4s ease;
 }
 
 .sidebar-logo {
@@ -1236,6 +1262,59 @@ section.footer .container{
 	top: 0px;
 }
 
+.sidebar-menu-icon {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.sidebar-menu-icon span {
+    width: 28px;
+    height: 3px;
+	border-radius: 10px;
+    background: var(--primary);
+}
+@media (max-width:768px){
+	.sidebar {
+		left: 105px;
+        transform: translateX(100%);
+    }
+
+    .sidebar.open {
+		border-radius:  25px 0 0 25px;
+		z-index: 6;
+        transform: translateX(0);
+    }
+
+	.sidebar-menu-icon {
+        position: fixed;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+		top: 21px;
+        left: 324px;
+        display: flex;
+        z-index: 7;
+    }
+
+	.main-content {
+		margin: 0;
+		padding: 0;
+	}
+	/* Backdrop */
+    .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 5;
+    }
+	.navbar{
+		display: flex;
+		height: 55px;
+		border-radius: 0;
+	}
+}
 
 
 .booking-page {

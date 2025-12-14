@@ -93,7 +93,7 @@ const Topbarber = () => {
                     <p>Loading top barbers...</p>
                 )}
             </div>
-            <div className="topbarber-grid">
+            <div className="topbarber-grid" style={{marginTop: "30px"}}>
             <Link to="/view-barbers" className="btn btn-primary">View All</Link>
             </div>
         </section>

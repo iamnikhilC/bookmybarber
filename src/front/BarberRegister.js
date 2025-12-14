@@ -78,7 +78,7 @@ const BarberRegister = () => {
     }
 
     return (
-        <div className="container">
+        <div className="resigtration container">
             <div className="row">
                 <div className="col">
                     <div className="card">

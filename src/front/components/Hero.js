@@ -6,7 +6,13 @@ import TextLogo from '../../images/white-logo.png'; // ✅ import image
 const Hero = () => {
     const controls = useAnimation();
     const [scrolled, setScrolled] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
 
+    const toggleMenu = () => {
+        console.log('inside toggel');
+        setMenuOpen(!menuOpen);
+    };
+    
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 100);
@@ -27,13 +33,13 @@ const Hero = () => {
             <header className={`header`}>
                 <div className="logo"></div>
                 {/* <img src={TextLogo} alt="MyBarber Logo" className="logo" /> */}
-                <div className="links">
+                <div className={`links ${menuOpen ? 'show' : ''}`}>
                     <Link to="/">Home</Link>
                     <Link to="/login" className="bg-red-500 text-white px-4 py-2 rounded">Login</Link>
                     <Link to="/register" className="bg-red-500 text-white px-4 py-2 rounded">Register</Link>
                     <Link to="/barber-register" className="bg-red-500 text-white px-4 py-2 rounded">Barber Register</Link>
                 </div>
-                <div class="menu-icon" onclick="toggleMenu()">
+                <div className="menu-icon" onClick={toggleMenu}>
                     <span></span>
                     <span></span>
                     <span></span>
