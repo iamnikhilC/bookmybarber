@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axiosClient from "./axiosClient";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import BackButton from "./components/BackButton";
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -41,7 +41,7 @@ const Login = () => {
 
 	return (
 		<div className="login-container">
-			
+			<BackButton/>
 
 			{/* Right Section */}
 			<div className="right-section">

@@ -46,6 +46,12 @@ const SideMenu = () => {
                             Customers
                         </Link>
                     </li>
+                    <li className="menu-item">
+                        <FcManager className="icon" />
+                        <Link className="item-link" to="/bookings" onClick={closeSidebar}>
+                            Bookings
+                        </Link>
+                    </li>
                 </ul>
             </div>
 

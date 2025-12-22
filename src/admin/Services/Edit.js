@@ -1,15 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { toast } from "react-toastify";
+import { CiEdit } from "react-icons/ci";
 
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
-function Add() {
+function Edit() {
+    const { id } = useParams();
+    const navigate = useNavigate();
+
     const [barber_id, setBarber_id] = useState(1);
-    const [service, setService] = useState();
-    const [description, setDescription] = useState();
-    const [price, setPrice] = useState();
-    const [duration, setDuration] = useState();
+    const [service, setService] = useState("");
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState("");
+    const [duration, setDuration] = useState("");
     const [errors, setErrors] = useState({});
 
     const validator = () => {
@@ -20,12 +25,24 @@ function Add() {
         return errors;
     }
 
+    useEffect(() => {
+        const fetchService = async () => {
+            const response = await axios.get(`${baseURL}/service/edit.php?id=${id}`);
+            const ser = response.data.data;
+            setService(ser.service);
+            setDescription(ser.description);
+            setPrice(ser.price);
+            setDuration(ser.duration);
+        } 
+        fetchService();
+    }, []); 
+
     const handleSubmit = async (e) =>{
         e.preventDefault();
         const validateErrors = validator();
         setErrors(validateErrors);
         const { data } = await axios.post(
-            `${baseURL}/service/add.php`,
+            `${baseURL}/service/edit.php?id=${id}`,
             { barber_id, service, description, price, duration},
             { headers: { "Content-Type": "application/json" } }
         )
@@ -35,6 +52,10 @@ function Add() {
             setPrice('');
             setDuration('');
             toast.success(data.message);
+
+            setTimeout(() => {
+                navigate("/admin/services");
+            }, 1500); // wait so user sees toast
         } else {
             toast.error(data.message);
         }
@@ -43,11 +64,11 @@ function Add() {
     } 
     return (
         <div>
-            <h4>Service / Add Service</h4>
+            <h4>Service / Edit Service</h4>
             <div className='row'>
                 <div className='col-12'>
                     <div className='card'>
-                        <h4 className='page-heading'> Add Service</h4>
+                        <h4 className='page-heading'> <CiEdit/>  Edit Service</h4>
                         <div className='card-body'>
                             <form onSubmit={handleSubmit}>
                                 <div className="row">
@@ -79,7 +100,12 @@ function Add() {
                                         </div>
                                     </div>
                                     
-                                    <div className="col-4">
+                                    <div className="col-1">
+                                        <div className="group-input">
+                                            <Link to="/admin/services" className="btn-primary">Back</Link>
+                                        </div>
+                                    </div>
+                                    <div className="col-1">
                                         <div className="group-input">
                                             <button type="submit" className="submit-btn">Submit</button>
                                         </div>
@@ -94,4 +120,4 @@ function Add() {
     )
 }
 
-export default Add
+export default Edit

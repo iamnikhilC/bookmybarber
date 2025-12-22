@@ -9,6 +9,7 @@ import BarberRegister from './front/BarberRegister';
 import Dashboard from './admin/Dashboard';
 import Barbers from './admin/Barber/Barbers';
 import Add from './admin/Services/Add';
+import Edit from './admin/Services/Edit';
 import Services from './admin/Services/Services'; 
 import Customers from './admin/Customer/Customers';
 import EditCustomer from './admin/Customer/EditCustomer';
@@ -46,6 +47,7 @@ function App() {
 				<Route path="bookings" element={<Bookings />} />
 				<Route path="booking/:id" element={<Booking />} />
 				<Route path="add-service" element={<Add />} />
+				<Route path="edit-service/:id" element={<Edit />} />
 				
 			</Route>
 		</Routes>

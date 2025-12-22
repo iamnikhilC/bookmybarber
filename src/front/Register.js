@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { ValidatePassword, EyeIcon } from "../utils/validations";
-
+import BackButton from "./components/BackButton";
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const Register = () => {
@@ -51,6 +51,7 @@ const Register = () => {
 
     return (
         <div className="resigtration container">
+            <BackButton/>
             <div className="row">
                 <div className="col">
                 <div className="card">
