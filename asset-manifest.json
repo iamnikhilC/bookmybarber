@@ -1,11 +1,12 @@
 {
   "files": {
-    "main.css": "/bookmybarber/static/css/main.8a5576f9.css",
-    "main.js": "/bookmybarber/static/js/main.0190071c.js",
+    "main.css": "/bookmybarber/static/css/main.ec19cd8a.css",
+    "main.js": "/bookmybarber/static/js/main.6d3532eb.js",
     "static/js/453.670e15c7.chunk.js": "/bookmybarber/static/js/453.670e15c7.chunk.js",
     "static/media/auth.png": "/bookmybarber/static/media/auth.e7ed525cd9bc4aec0a02.png",
     "static/media/payment.png": "/bookmybarber/static/media/payment.4b77d54bf81082526202.png",
     "static/media/book.png": "/bookmybarber/static/media/book.2caf16d2984e11a50979.png",
+    "static/media/new-booking.png": "/bookmybarber/static/media/new-booking.946879bebea3f92d341d.png",
     "static/media/choose-barber.png": "/bookmybarber/static/media/choose-barber.f557ce561ebad406a4d8.png",
     "static/media/pick-service.png": "/bookmybarber/static/media/pick-service.4e73ded254ba330a7779.png",
     "static/media/book-now.png": "/bookmybarber/static/media/book-now.b490b10d0bb65e72f95a.png",
@@ -16,12 +17,12 @@
     "static/media/logo.png": "/bookmybarber/static/media/logo.01a8fe371dfd9d42515d.png",
     "static/media/white-logo.png": "/bookmybarber/static/media/white-logo.f500f00b97a78fdedc17.png",
     "index.html": "/bookmybarber/index.html",
-    "main.8a5576f9.css.map": "/bookmybarber/static/css/main.8a5576f9.css.map",
-    "main.0190071c.js.map": "/bookmybarber/static/js/main.0190071c.js.map",
+    "main.ec19cd8a.css.map": "/bookmybarber/static/css/main.ec19cd8a.css.map",
+    "main.6d3532eb.js.map": "/bookmybarber/static/js/main.6d3532eb.js.map",
     "453.670e15c7.chunk.js.map": "/bookmybarber/static/js/453.670e15c7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8a5576f9.css",
-    "static/js/main.0190071c.js"
+    "static/css/main.ec19cd8a.css",
+    "static/js/main.6d3532eb.js"
   ]
 }
