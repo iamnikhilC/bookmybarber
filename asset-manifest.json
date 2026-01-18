@@ -1,12 +1,14 @@
 {
   "files": {
-    "main.css": "/bookmybarber/static/css/main.706c8600.css",
-    "main.js": "/bookmybarber/static/js/main.79ed8af2.js",
+    "main.css": "/bookmybarber/static/css/main.fc730e6a.css",
+    "main.js": "/bookmybarber/static/js/main.3e4e5aa9.js",
     "static/js/453.670e15c7.chunk.js": "/bookmybarber/static/js/453.670e15c7.chunk.js",
     "static/media/real-time.png": "/bookmybarber/static/media/real-time.355c6807618e4536e7f9.png",
+    "static/media/earn.png": "/bookmybarber/static/media/earn.99a22da88f285ea51337.png",
     "static/media/auth.png": "/bookmybarber/static/media/auth.e7ed525cd9bc4aec0a02.png",
     "static/media/payment.png": "/bookmybarber/static/media/payment.4b77d54bf81082526202.png",
     "static/media/book.png": "/bookmybarber/static/media/book.2caf16d2984e11a50979.png",
+    "static/media/setting.png": "/bookmybarber/static/media/setting.0b59a980d11376651281.png",
     "static/media/404.png": "/bookmybarber/static/media/404.59f21c29287d70bfa0c3.png",
     "static/media/new-booking.png": "/bookmybarber/static/media/new-booking.946879bebea3f92d341d.png",
     "static/media/choose-barber.png": "/bookmybarber/static/media/choose-barber.f557ce561ebad406a4d8.png",
@@ -20,13 +22,14 @@
     "static/media/hero_banner.jpg": "/bookmybarber/static/media/hero_banner.b045014f428c5260d287.jpg",
     "static/media/logo.png": "/bookmybarber/static/media/logo.01a8fe371dfd9d42515d.png",
     "static/media/white-logo.png": "/bookmybarber/static/media/white-logo.f500f00b97a78fdedc17.png",
+    "static/media/register-shop.webp": "/bookmybarber/static/media/register-shop.da58418b32deee25d5af.webp",
     "index.html": "/bookmybarber/index.html",
-    "main.706c8600.css.map": "/bookmybarber/static/css/main.706c8600.css.map",
-    "main.79ed8af2.js.map": "/bookmybarber/static/js/main.79ed8af2.js.map",
+    "main.fc730e6a.css.map": "/bookmybarber/static/css/main.fc730e6a.css.map",
+    "main.3e4e5aa9.js.map": "/bookmybarber/static/js/main.3e4e5aa9.js.map",
     "453.670e15c7.chunk.js.map": "/bookmybarber/static/js/453.670e15c7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.706c8600.css",
-    "static/js/main.79ed8af2.js"
+    "static/css/main.fc730e6a.css",
+    "static/js/main.3e4e5aa9.js"
   ]
 }
