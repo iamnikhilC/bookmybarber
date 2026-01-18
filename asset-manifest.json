@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/bookmybarber/static/css/main.b49f9aec.css",
+    "main.css": "/bookmybarber/static/css/main.e7a8a1f3.css",
     "main.js": "/bookmybarber/static/js/main.4e8abc0e.js",
     "static/js/453.670e15c7.chunk.js": "/bookmybarber/static/js/453.670e15c7.chunk.js",
     "static/media/real-time.png": "/bookmybarber/static/media/real-time.355c6807618e4536e7f9.png",
@@ -21,12 +21,12 @@
     "static/media/logo.png": "/bookmybarber/static/media/logo.01a8fe371dfd9d42515d.png",
     "static/media/white-logo.png": "/bookmybarber/static/media/white-logo.f500f00b97a78fdedc17.png",
     "index.html": "/bookmybarber/index.html",
-    "main.b49f9aec.css.map": "/bookmybarber/static/css/main.b49f9aec.css.map",
+    "main.e7a8a1f3.css.map": "/bookmybarber/static/css/main.e7a8a1f3.css.map",
     "main.4e8abc0e.js.map": "/bookmybarber/static/js/main.4e8abc0e.js.map",
     "453.670e15c7.chunk.js.map": "/bookmybarber/static/js/453.670e15c7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b49f9aec.css",
+    "static/css/main.e7a8a1f3.css",
     "static/js/main.4e8abc0e.js"
   ]
 }
