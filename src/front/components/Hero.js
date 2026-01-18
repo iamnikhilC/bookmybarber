@@ -105,7 +105,7 @@ const Hero = () => {
                 <div className={`logo`}></div>
                 {/* <img src={TextLogo} alt="MyBarber Logo" className="logo" /> */}
                 <div className={`links ${menuOpen ? 'show' : ''}`}>
-                    <Link to="/">Home</Link>
+                    <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
                     <Link to="/login" className="bg-red-500 text-white px-4 py-2 rounded">Login</Link>
                     <Link to="/register" className="bg-red-500 text-white px-4 py-2 rounded">Register</Link>
                     <Link to="/barber-register" className="bg-red-500 text-white px-4 py-2 rounded">Barber Register</Link>
@@ -120,20 +120,18 @@ const Hero = () => {
             </header>
 
             <motion.div className={`logo-container ${scrolled ? "scrolled" : ""}`} animate={controls} style={{
-    zIndex: menuOpen ? 0 : 5,
-    transition: "z-index 0.3s"
-  }}>
+                zIndex: menuOpen ? 0 : 5,
+                transition: "z-index 0.3s"
+            }}>
                 <img src={TextLogo} alt="MyBarber Hero Logo" className={`logo ${scrolled ? "scrolled" : ""}`} />
             </motion.div>
             <div className="hero-content">
-
                 <h2 className="typewriter">{headingText}</h2>
                 <p className="typewriter">{paragraphText}</p>
 
                 <div>
-
-                <button style={{marginRight: '20px'}}>Book Now</button>
-                <button>Join as Barber</button>
+                    <Link to="/view-barbers" className="btn-primary" style={{ marginRight: '20px' }}>Book now</Link>
+                    <Link to="/barber-register" className="btn-primary">Join as Barber</Link>
                 </div>
             </div>
 

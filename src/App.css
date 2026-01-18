@@ -994,6 +994,7 @@ section.how .card {
 section.how .card img {
 	width: 150px;
 	height: 150px;
+	object-fit: cover;
 }
 
 section.how .card h4 {
@@ -1006,6 +1007,12 @@ section.how .card p {
 	color: #595959;
 	/* text-gray-700 */
 }
+section.how .header-type {
+	color: black;
+	font-size: 20px;
+	padding-bottom: 5px;
+	border-bottom: 2px solid var(--primary);
+}
 
 /* ===Responsive=== */
 @media (max-width: 768px) {
@@ -1016,7 +1023,7 @@ section.how .card p {
 	section.how h3 {
 		font-size: 38px;
 	}
-
+	
 	section.how .row {
 		flex-wrap: wrap;
 	}
