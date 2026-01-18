@@ -604,11 +604,15 @@ section.hero::after {
 .logo-container img {
 	width: 325px;
 }
+.logo-container.menu-open {
+	z-index: 1px !important;
+}
 @media (min-width: 768px) {
 	.hero {
 		flex-direction: row;
 		justify-content: center;
 	}
+	
 
 }
 

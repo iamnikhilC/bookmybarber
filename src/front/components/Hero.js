@@ -102,13 +102,14 @@ const Hero = () => {
     return (
         <section className="hero">
             <header className={`header`}>
-                <div className="logo"></div>
+                <div className={`logo`}></div>
                 {/* <img src={TextLogo} alt="MyBarber Logo" className="logo" /> */}
                 <div className={`links ${menuOpen ? 'show' : ''}`}>
                     <Link to="/">Home</Link>
                     <Link to="/login" className="bg-red-500 text-white px-4 py-2 rounded">Login</Link>
                     <Link to="/register" className="bg-red-500 text-white px-4 py-2 rounded">Register</Link>
                     <Link to="/barber-register" className="bg-red-500 text-white px-4 py-2 rounded">Barber Register</Link>
+                    <Link to="/conatct" className="bg-red-500 text-white px-4 py-2 rounded">Contact us</Link>
                 </div>
                 <div className={`menu-icon ${menuOpen ? "open" : ""}`} onClick={toggleMenu}>
                     <span></span>
@@ -118,7 +119,10 @@ const Hero = () => {
 
             </header>
 
-            <motion.div className={`logo-container ${scrolled ? "scrolled" : ""}`} animate={controls}>
+            <motion.div className={`logo-container ${scrolled ? "scrolled" : ""}`} animate={controls} style={{
+    zIndex: menuOpen ? 0 : 5,
+    transition: "z-index 0.3s"
+  }}>
                 <img src={TextLogo} alt="MyBarber Hero Logo" className={`logo ${scrolled ? "scrolled" : ""}`} />
             </motion.div>
             <div className="hero-content">
