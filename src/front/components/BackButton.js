@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { HiChevronLeft } from "react-icons/hi";
-
+import { Icons } from "./Icons";
 const BackButton = () => {
   const navigate = useNavigate();
 
   return (
-    <button className="back-arrow" onClick={() => navigate(-1)}>
-      <HiChevronLeft />
+    <button className="back-arrow icon" onClick={() => navigate(-1)}>
+      <Icons.BackArrow />
     </button>
   );
 };

@@ -5,10 +5,10 @@ export default function Logout() {
 const navigate = useNavigate();
 
   useEffect(() => {
-    axios.post("http://localhost/MyBarber/backend/api/auth/logout.php").then(() => {
-      localStorage.clear();
-      navigate("/login")
-    });
+    localStorage.clear();
+      navigate("/login");
+    // axios.post("http://localhost/MyBarber/backend/api/auth/logout.php").then(() => {
+    // });
   }, []);
 
   return <p>Logging out...</p>;

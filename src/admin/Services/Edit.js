@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { toast } from "react-toastify";
-import { CiEdit } from "react-icons/ci";
-
+import { Icons } from '../../front/components/Icons';
+import { useAuth } from '../../Context/AuthUser';
+import BackButton from '../../front/components/BackButton';
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 function Edit() {
+
+    const { user } = useAuth();
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const [barber_id, setBarber_id] = useState(1);
+    const [barber_id, setBarber_id] = useState(user?.id);
     const [service, setService] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
@@ -33,17 +36,17 @@ function Edit() {
             setDescription(ser.description);
             setPrice(ser.price);
             setDuration(ser.duration);
-        } 
+        }
         fetchService();
-    }, []); 
+    }, []);
 
-    const handleSubmit = async (e) =>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const validateErrors = validator();
         setErrors(validateErrors);
         const { data } = await axios.post(
             `${baseURL}/service/edit.php?id=${id}`,
-            { barber_id, service, description, price, duration},
+            { barber_id, service, description, price, duration },
             { headers: { "Content-Type": "application/json" } }
         )
         if (data.status === 'success') {
@@ -51,24 +54,25 @@ function Edit() {
             setDescription('');
             setPrice('');
             setDuration('');
-            toast.success(data.message);
 
-            setTimeout(() => {
-                navigate("/admin/services");
-            }, 1500); // wait so user sees toast
+            toast.success(data.message);
+            // setTimeout(() => {
+            //     navigate("/admin/services");
+            // }, 3500); // wait so user sees toast
         } else {
             toast.error(data.message);
         }
-
-        console.log('service', service, 'description', description, 'price', price);
-    } 
+    }
     return (
         <div>
-            <h4>Service / Edit Service</h4>
+            <div className='page-header'>
+                <Link to="" style={{ fontSize: '20px', color: 'gray' }}><BackButton /></Link>
+                <h4 style={{ fontSize: '16px', fontWeight: '600' }}>Service / Edit Service</h4>
+            </div>
             <div className='row'>
                 <div className='col-12'>
                     <div className='card'>
-                        <h4 className='page-heading'> <CiEdit/>  Edit Service</h4>
+                        <h4 className='page-heading'> <Icons.Edit />  Edit Service</h4>
                         <div className='card-body'>
                             <form onSubmit={handleSubmit}>
                                 <div className="row">
@@ -99,13 +103,7 @@ function Edit() {
                                             <textarea type="password" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Please enter service description...."></textarea>
                                         </div>
                                     </div>
-                                    
-                                    <div className="col-1">
-                                        <div className="group-input">
-                                            <Link to="/admin/services" className="btn-primary">Back</Link>
-                                        </div>
-                                    </div>
-                                    <div className="col-1">
+                                    <div className="col-4">
                                         <div className="group-input">
                                             <button type="submit" className="submit-btn">Submit</button>
                                         </div>

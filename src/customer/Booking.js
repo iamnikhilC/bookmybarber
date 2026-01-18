@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import { FaRupeeSign, FaCut } from "react-icons/fa";   // from Font Awesome
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../front/components/Header'
 import { toast } from "react-toastify";
-
+import BackButton from '../front/components/BackButton';
+import { Icons } from '../front/components/Icons';
+import { useAuth } from '../Context/AuthUser';
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const Booking = () => {
+    const {user} = useAuth();
     const { id } = useParams();
     const [barber, setBarber] = useState([]);
     const [services, setServices] = useState([]);
     const [bookings, setBookings] = useState([]);
-    const [form, setForm] = useState({ date: "", time: "",srvc: "", price: "", id: "" });
+    const [form, setForm] = useState({services: [],});
     const today = new Date().toISOString().split("T")[0];
     const currentTime = new Date().toTimeString().slice(0, 5); // "HH:MM"
-
+    
     const getBarberDetails = async (date = '') => {
         try {
             const response = await axios.get(`${baseURL}/service/services.php?id=${id}&date=${date}`);
@@ -24,119 +25,191 @@ const Booking = () => {
         } catch (error) {
         }
     };
+    const getBookings = async (date = "") => {
+        const response = await axios.get(`${baseURL}/booking/get-cust-bookings.php?date=${date}`);
+        console.log('bookings', response.data.data);
+        setBookings([...bookings, response.data.data]);
+    };
+    
     useEffect(() => {
-        const getBookings = async () => {
-            const response = await axios.get(`${baseURL}/booking/add-booking.php?`);
-            setBookings([...bookings, response.data.data]);
-        }
-        getBookings();
+        getBookings(today);
         setForm((prev) => ({ ...prev, date: today }));
         getBarberDetails(today);
     }, [id]);
 
     const handleBook = async () => {
-        if (!form.srvc || !form.date || !form.time) {
+        if (!form.services || !form.date || !form.time) {
             alert("Please fill all booking details!");
             return;
         }
 
         const newBooking = {
-            sid: form.id,
+            cid: user.id,
             bid: barber.id,
             date: form.date,
             time: form.time,
-            service: form.srvc,
+            sids: form.services.map(service => service.id),
         };
 
+        console.log('newBooking', form.services);
         const { data } = await axios.post(
             `${baseURL}/booking/add-booking.php?action=add`,
             { newBooking },
             { headers: { "Content-Type": "application/json" } }
         )
         if (data.status === 'success') {
-
             toast.success(data.message);
+            setTimeout(() => {
+                window.location.reload();
+            }, 800);
         } else {
             toast.error(data.message);
         }
-        setForm({ date: "", time: "", srvc: "", price: "", id: "" });
+        setForm({ services: [] });
+    };
+
+    const toggleService = (service) => {
+        setForm(prev => {
+            const exists = prev.services.find(s => s.id === service.id);
+
+            if (exists) {
+                // ❌ remove if already selected
+                return {
+                    ...prev,
+                    services: prev.services.filter(s => s.id !== service.id)
+                };
+            }
+
+            // ✅ add if not selected
+            return {
+                ...prev,
+                services: [
+                    ...prev.services,
+                    {
+                        id: service.id,
+                        name: service.service,
+                        price: service.price
+                    }
+                ]
+            };
+        });
     };
 
     const cancelBooking = (id) => {
         setBookings(bookings.filter((b) => b.id !== id));
     };
 
+    const isSlotBooked = (slotTime) => {
+        return bookings?.some(
+            booking =>
+                booking.time == slotTime
+        );
+    };
+  
     return (
         <div className='booking'>
-            <h2 className="title"> Booking Management</h2>
-            <p className="subtitle">Manage your appointments — View available barbers, book, cancel or reschedule.</p>
+            <div className='page-header'>
+                <Link to="" style={{ fontSize: '20px', color: 'gray' }}><BackButton /></Link>
+                <div className='heder'>
+                    <h4 style={{ fontSize: '16px', fontWeight: '600' }}>Manage Bookings</h4>
+                    <p className="subtitle">Manage your appointments — View available barbers, book, cancel or reschedule.</p>
+                </div>
+            </div>
             <div className="barber-section card">
-                <h3>{barber.shop_name}</h3>
-                <h5>{barber.user_name}</h5>
-                <p><strong>Address:</strong> <br />{barber.address}</p>
-                <p><strong>Experience:</strong> <br />{barber.experience} Year's</p>
-                <p><strong>Specialties:</strong> <br /> {barber.specialization}</p>
+                <h3><span className='icon'><Icons.Shop /></span>{barber.shop_name}</h3>
+                <p><span className='icon'><Icons.User /></span>{barber.user_name}</p>
+                <p><span className='icon'><Icons.Address /></span>{barber.address}</p>
+                <p><span className='icon'><Icons.Brifcase /></span>{barber.experience} Year's</p>
+                <p><span className='icon'><Icons.Speciality /></span> {barber.specialization}</p>
             </div>
 
             <input type="date" value={form.date} min={today}
                 onChange={(e) => {
                     const selectedDate = e.target.value;
+                    getBookings(selectedDate);
                     setForm({ ...form, date: selectedDate });
                     getBarberDetails(selectedDate);
                 }}
             />
             <p><strong>Available Slots:</strong></p>
-            <div className='row'>
+            <div className='slot-indicator row'>
+                <div><span className='slots available'></span>Available</div>
+                <div><span className='slots disabled'></span>Booked</div>
+            </div>
+
+            <div className='available-slots row'>
                 {barber.slots?.map((slot, i) => {
-                    const isToday = form.date === today;
-                    const isPast = isToday && slot.start < currentTime;
-                return(
-                    isPast ? <span key={i} className={`slots card ${isPast ? "disabled" : ""}`}> {slot.start} </span> 
-                    : <span
-                        key={i}
-                        className={`slots card ${form.time === slot.start ? "selected" : ""} ${isPast ? "disabled" : ""}`}
-                        onClick={() => setForm({ ...form, time: slot.start })}
-                    >
-                    {slot.start}
-                    </span>
-                )})}
+                    const isToday  = form.date === today;
+                    const isPast   = isToday && slot.start < currentTime;
+                    const isBooked = isSlotBooked(slot.start);
+                    console.log('isBooked', isBooked);
+
+                    return (
+                        isPast ? <span key={i} className={`slots card ${isPast ? "disabled" : ""}`}> {slot.label} </span>
+                            : <span
+                                key={i}
+                                className={`slots card ${form.time === slot.start ? "selected" : ""} `}
+                                onClick={() => setForm({ ...form, time: slot.start })}
+                            >
+                                {slot.label}
+                            </span>
+                    )
+                })}
             </div>
 
-            <div className='services'>
-                {services.map((service, i) => (
-                    <div
-                        key={i}
-                        className={`card ${form.srvc === service.service ? "selected" : ""}`}
-                        onClick={() =>
-                            setForm({ ...form, srvc: service.service, price: service.price.toFixed(2), id: service.id })
-                        }
-                    >
-                        <div className='card-header'>{service.service}</div>
-                        <div className='card-body'>
-                            <p>{service.description}</p>
-                            <p className='price'>
-                                <FaRupeeSign />
-                                <strong>{service.price.toFixed(2)}</strong>
-                            </p>
+            <div className="services">
+                {services.map((service, i) => {
+                    const selected = form.services.some(s => s.id === service.id);
+
+                    return (
+                        <div
+                            key={i}
+                            className={`card ${selected ? "selected" : ""}`}
+                            onClick={() => toggleService(service)}
+                        >
+                            <div className="card-header">{service.service}</div>
+                            <div className="card-body">
+                                <p>{service.description}</p>
+                                <p className="price">
+                                    <Icons.Wallet className="icon" />
+                                    <strong> ₹ {service.price.toFixed(2)}</strong>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
-
 
             {/* Booking Form */}
-            {form.srvc && (
+            {form.services.length > 0 && (
                 <div className="booking-form card">
                     <h3>Confirm Your Appointment</h3>
                     <div className="form-grids">
-                        <p><strong>Service :</strong>{form.srvc}</p>
-                        <p><strong>Date :</strong>{form.date}</p>
-                        <p><strong>Time :</strong>{form.time}</p>
-                        <p><strong>Price :</strong>{form.price}</p>
+                        <div>
+                            <p><Icons.Service className="icon" /> Service(s)
+                                {form.services.map(service => (
+                                    <p key={service.id}>{service.name} – ₹{Number(service.price).toFixed(2)}</p>
+                                ))}
+                            </p>
+                        </div>
+
+                        <p><Icons.Calendar className="icon" />{form.date}</p>
+                        <p><Icons.Watch className="icon" />{form.time}</p>
+                        <p>
+                            <Icons.Wallet className="icon"/>
+                            <strong>
+                                Total: ₹
+                                {form.services
+                                    .reduce((sum, s) => sum + Number(s.price), 0)
+                                    .toFixed(2)}
+                            </strong>
+                        </p>
                     </div>
-                        <button onClick={handleBook}>Confirm</button>
+                    <p></p>
+                    <button onClick={handleBook}>Confirm & Pay</button>
                 </div>
             )}
+
 
             {/* Manage Bookings */}
             <div className="manage-section">
@@ -146,12 +219,12 @@ const Booking = () => {
                 ) : (
                     <div className="bookings-list">
                         {bookings[0].map((b) => (
-                            <div key={b.id} className="booking-card">
-                                <h4>{b.barber}</h4>
-                                <p>
-                                    {b.date} at {b.time}
-                                </p>
-                                <p>Service: {b.service}</p>
+                            <div key={b.id} className=" card">
+                                <p><Icons.Service className="icon"/> <strong>{b.services}</strong></p>
+                                <p><Icons.Calendar className="icon" />{b.date}</p>
+                                <p><Icons.Watch className="icon" />{b.time}</p>
+                                <p><Icons.Wallet className="icon"/>₹ {b.price.toFixed(2)}</p>
+                                <p></p>
                                 <button onClick={() => cancelBooking(b.id)}>Cancel</button>
                             </div>
                         ))}

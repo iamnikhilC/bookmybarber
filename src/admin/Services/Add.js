@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import axios from "axios";
+import { Link } from 'react-router-dom';
+import BackButton from '../../front/components/BackButton';
 import { toast } from "react-toastify";
-
+import { useAuth } from '../../Context/AuthUser';
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 function Add() {
-    const [barber_id, setBarber_id] = useState(1);
+    const {user} = useAuth();
     const [service, setService] = useState();
     const [description, setDescription] = useState();
     const [price, setPrice] = useState();
@@ -19,6 +21,7 @@ function Add() {
         if (!duration) errors.duration = 'Duration is required!';
         return errors;
     }
+    const barber_id = user?.id;
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
@@ -26,7 +29,7 @@ function Add() {
         setErrors(validateErrors);
         const { data } = await axios.post(
             `${baseURL}/service/add.php`,
-            { barber_id, service, description, price, duration},
+            { barber_id , service, description, price, duration},
             { headers: { "Content-Type": "application/json" } }
         )
         if (data.status === 'success') {
@@ -38,12 +41,13 @@ function Add() {
         } else {
             toast.error(data.message);
         }
-
-        console.log('service', service, 'description', description, 'price', price);
     } 
     return (
         <div>
-            <h4>Service / Add Service</h4>
+            <div className='page-header'>
+                <Link to="" style={{ fontSize: '20px', color: 'gray' }}><BackButton /></Link>
+                <h4 style={{ fontSize: '16px', fontWeight: '600' }}>Service / Add Service</h4>
+            </div>
             <div className='row'>
                 <div className='col-12'>
                     <div className='card'>

@@ -7,22 +7,18 @@ import CTA from "./components/CAT";
 import Topbarber from "./components/Topbarber";
 import MissionVission from "./components/MissionVission";
 import AboutUs from "./components/AboutUs";
-
+import WhyUs from "./components/WhyUs";
+import OurFeartures from "./components/OurFeatures";
 const Home = () => {
     return (
         <div className="font-roboto">
-
-            {/* Hero Section */}
             <Hero/>
-
-            {/* Services Section */}
             <Topbarber/>
-
-            {/* Services Section */}
-            {/* <AppService/> */}
-            <MissionVission/>
-            {/* How It Works */}
+            <WhyUs/>
             <HowItWorks/>
+            <MissionVission/>
+            <OurFeartures/>
+            {/* How It Works */}
             <AboutUs/>
             {/* CTA Section */}
             <CTA/>

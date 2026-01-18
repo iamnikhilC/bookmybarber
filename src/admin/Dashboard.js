@@ -1,17 +1,35 @@
-import React from "react";
+import {React, useState} from "react";
 import newBooking from '../images/new-booking.png'; // ✅ import image
 const Dashboard = () => {
+    const [authUser, setAuthUser] = useState(() => {
+        const user = localStorage.getItem("user");
+        return user ? JSON.parse(user) : null;
+      });
+      
+      console.log("authUser", authUser);
+      
     return (
         <div className="dashbaord">
             <div className="row">
-                <div className="col-12">
-                    <div className="card">
-                        <div className="card-body">
-                            <p>You have new booking for <strong>Hari cutting</strong></p>
-                            <img src={newBooking} alt="MyBarber Hero Logo" />
+                {authUser?.role === 'seller' ? (
+                    <div className="col-12">
+                        <div className="card">
+                            <div className="card-body">
+                                <p>You have new booking for <strong>Hari cutting</strong></p>
+                                <img src={newBooking} alt="MyBarber Hero Logo" />
+                            </div>
                         </div>
                     </div>
-                </div>
+                ):(
+                    <div className="col-12">
+                        <div className="card">
+                            <div className="card-body">
+                                <p>You have new Registration</p>
+                                <img src={newBooking} alt="MyBarber Hero Logo" />
+                            </div>
+                        </div>
+                    </div>
+                )}
                 <div className="col-4">
                     <div className="card">
                         <div className="card-header">Customers</div>

@@ -1,13 +1,14 @@
 import React, { useState, Link } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { ValidatePassword, EyeIcon } from "../utils/validations";
-import BackButton from "./components/BackButton";
 
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const BarberRegister = () => {
+	const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [mobile, setMobile] = useState('');
@@ -71,6 +72,7 @@ const BarberRegister = () => {
                 setCpassword('');
                 setErrors('');
                 setShowPassword('');
+				navigate('/admin');
                 toast.success(data.message);
             } else {
                 toast.error(data.message);
@@ -80,7 +82,6 @@ const BarberRegister = () => {
 
     return (
         <div className="resigtration container">
-            <BackButton/>
             <div className="row">
                 <div className="col">
                     <div className="card">
@@ -154,7 +155,7 @@ const BarberRegister = () => {
                                     <div className="col-4">
                                         <div className="group-input">
                                             <label>City</label>
-                                            <input type="text" name="city" placeholder="What's your Speciality ?" value={city} onChange={(e) => setCity(e.target.value)} />
+                                            <input type="text" name="city" placeholder="Where do you live?" value={city} onChange={(e) => setCity(e.target.value)} />
                                             {errors.city && <span style={{ color: "red", fontSize: "14px" }}>{errors.city}</span>}
                                         </div>
                                     </div>

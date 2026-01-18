@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axiosClient from "./axiosClient";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import BackButton from "./components/BackButton";
+
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -28,8 +28,8 @@ const Login = () => {
 				{ headers: { "Content-Type": "application/json" } }
 			)
 			if (data.status === 'success') {
-				console.log('data', data);
 				localStorage.setItem("user", JSON.stringify(data.user));
+				localStorage.setItem("access_token", JSON.stringify(data.access_token));
 
 				navigate('/admin');
 				toast.success(data.message);
@@ -41,8 +41,6 @@ const Login = () => {
 
 	return (
 		<div className="login-container">
-			<BackButton/>
-
 			{/* Right Section */}
 			<div className="right-section">
 				

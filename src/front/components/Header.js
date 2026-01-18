@@ -1,11 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import Logo from '../../images/logo.png'; // ✅ import image
 
 const Header = () => {
-    function toggleMenu() {
-        document.getElementById("navLinks").classList.toggle("show");
-    }
+    const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
     return (
 
         <header className="common header">
@@ -19,7 +21,7 @@ const Header = () => {
                 <Link to="/barber-register" className="bg-red-500 text-white px-4 py-2 rounded">Barber Register</Link>
             </div>
 
-            <div class="menu-icon" onclick="toggleMenu()">
+            <div className={`menu-icon ${menuOpen ? "open" : ""}`} onClick={toggleMenu}>
                 <span></span>
                 <span></span>
                 <span></span>
