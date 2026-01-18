@@ -486,8 +486,9 @@ section.hero::after {
 @media(max-width: 768px) {
 	.header {
 		z-index: 4;
-		width: auto;
-        padding: 0.8rem 13rem;
+		width: 93vw;
+
+        padding: 0.8rem;
 	}
 
 	.links {
@@ -513,8 +514,8 @@ section.hero::after {
 	}
 
 	.menu-icon {
-		top: 25px;
-		left: 320px;
+		top: 25%;
+		left: 88%;
 		position: absolute;
 		display: flex;
 		z-index: 5;
