@@ -4,9 +4,13 @@ import { FcMultipleDevices, FcManager, FcServices, FcViewDetails, FcRedo } from 
 import { TbCreditCardPay } from "react-icons/tb";
 import Logo from "../images/logo.png";
 import { useAuth } from "../Context/AuthUser";
+import { Icons } from "../front/components/Icons";
+const baseURL = process.env.REACT_APP_API_BASE_URL;
+
 const SideMenu = () => {
     const { user, avatar } = useAuth();
     const [sidebar, setSidebar] = useState(false);
+
     const toggleSidebar = () => {
         setSidebar(prev => !prev);
     };
@@ -23,7 +27,9 @@ const SideMenu = () => {
                 </div>
                 <div className="sidebar-profile">
                     <Link to="/admin/profile" onClick={closeSidebar}>
-                        <img className="logo" src={avatar} alt="logo" style={{ height: '40px' }} />
+                        <img className="logo" src={user?.profile_image
+                                        ? `${baseURL}/auth/uploads/profiles/${user.profile_image}`
+                                        : avatar} alt="logo" style={{ height: '40px', objectFit: 'cover' }} />
                         <p><strong>{user?.name}</strong></p>
                     </Link>
                 </div>
@@ -63,15 +69,24 @@ const SideMenu = () => {
 
                     {/* {user?.role === "admin" || user?.role === "barber" && ( */}
                     <li className="menu-item">
-                        <FcViewDetails className="icon" />
+                        <Icons.colorCalendar className="icon" />
                         <Link className="item-link" to="/bookings" onClick={closeSidebar}>
                             Bookings
                         </Link>
                     </li>
                     {/* )} */}
+
+                    {user?.role === "admin" || user?.role === "barber" && (
+                        <li className="menu-item">
+                            <TbCreditCardPay className="icon" />
+                            <Link className="item-link" to="/view-reviews/" onClick={closeSidebar}>
+                                View re-views
+                            </Link>
+                        </li>
+                    )}
                     {user?.role === "admin" || user?.role === "customer" && (
                         <li className="menu-item">
-                            <FcViewDetails className="icon" />
+                            <Icons.list className="icon" />
                             <Link className="item-link" to="/view-barbers" onClick={closeSidebar}>
                                 All Barbers
                             </Link>
@@ -81,7 +96,7 @@ const SideMenu = () => {
 
                         <li className="menu-item">
                             <TbCreditCardPay className="icon" />
-                            <Link className="item-link" to="/bookings/" onClick={closeSidebar}>
+                            <Link className="item-link" to="/payments/" onClick={closeSidebar}>
                                 Payments
                             </Link>
                         </li>
@@ -98,7 +113,7 @@ const SideMenu = () => {
             </div>
 
             {/* Mobile hamburger */}
-            <div className="sidebar-menu-icon" onClick={toggleSidebar}>
+            <div className={`sidebar-menu-icon ${sidebar ? "open" : ""}`} onClick={toggleSidebar}>
                 <span></span>
                 <span></span>
                 <span></span>

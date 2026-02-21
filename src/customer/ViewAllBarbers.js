@@ -5,7 +5,7 @@ import defaultBanner from '../images/default_banner.png'; // ✅ import image
 import defaultProfile from '../images/logo.png'; // ✅ import image
 import BackButton from "../front/components/BackButton";
 import { Icons } from "../front/components/Icons";
-import StarRating from "../front/components/StarRating";
+import BarberRating from "../admin/Rating/BarberRating";
 import empty from "../images/empty.png";
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
@@ -17,12 +17,19 @@ export default function ViewAllBarbers({ onView = (b) => console.log("view", b),
 	const [page, setPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
 
+	const getAvatarUrl = (name) =>
+        `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            name || "User"
+        )}&background=random&color=fff&rounded=true`;
+
+    // const avatar = getAvatarUrl(user?.name);
+
 	const getTopBarbers = async () => {
 		try {
 			const response = await axios.get(`${baseURL}/front/topbarbers.php`, {
 				params: {
 					page,
-					limit: 3,
+					limit: 10,
 					search: query,
 					sort
 				}
@@ -84,21 +91,20 @@ export default function ViewAllBarbers({ onView = (b) => console.log("view", b),
 									<img className="profile" src={
 										barber?.profile_image
 											? `${baseURL}/auth/uploads/profiles/${barber.profile_image}`
-											: defaultProfile} alt={barber.shop_name || "Barber Banner"} />
+											: getAvatarUrl(barber.name)} alt={barber.shop_name || "Barber Banner"} />
 								</div>
 								<div className="card-body">
 									<span className="business-name">
 										{barber.shop_name || "Unnamed Barber"}
 									</span>
 									<span className="name">{barber.name || "No Name"}</span>
+									<p className="profile-bio">{barber.address || "No Name"}</p>
 									<div className="divider"></div>
-									<p className="profile-bio">
-										Excellent service! The barber was professional and friendly. I loved the haircut — exactly what I asked for!
-									</p>
-									<StarRating rating={barber.rating} />
+                                    <BarberRating rating={barber.rating} totalReviews={barber.total_reviews}/>
 
-									<div className="">
+									<div className="btn-container">
 										<button><Link to={`/booking/${barber.id}`} className="">Book Now</Link></button>
+										<button><Link to={`/view-reviews/${barber.id}`} className="">Reviews</Link></button>
 									</div>
 								</div>
 							</div>
@@ -110,8 +116,11 @@ export default function ViewAllBarbers({ onView = (b) => console.log("view", b),
 						</div>
 
 					)}
-					<div className="pagination">
-						<button
+					
+
+				</div>
+				<div className="pagination">
+						<button className={`${page === 1 ? 'disabled' : ''} `}
 							disabled={page === 1}
 							onClick={() => setPage(page - 1)}
 						>
@@ -120,16 +129,13 @@ export default function ViewAllBarbers({ onView = (b) => console.log("view", b),
 
 						<span>Page {page} of {totalPages}</span>
 
-						<button
+						<button className={`${page === totalPages ? 'disabled' : ''}`}
 							disabled={page === totalPages}
 							onClick={() => setPage(page + 1)}
 						>
 							<Icons.ForwardArrow />
 						</button>
 					</div>
-
-				</div>
-
 			</div>
 		</div>
 	);

@@ -29,7 +29,6 @@ export default function Profile() {
 
         fetchUser();
     }, [user]);
-    console.log('profile', profile);
 
     return (
         <div className='user-profile grid'>
@@ -43,12 +42,12 @@ export default function Profile() {
                     profile?.profile_image
                         ? `${baseURL}/auth/uploads/profiles/${profile.profile_image}`
                         : avatar
-                } alt="profile" style={{ height: '70px', width: "70px", borderRadius: "50%", objectFit: "cover" }} />
+                } alt="profile" style={{ height: '70px', width: "70px", borderRadius: "50%", objectFit: "cover", borderRadius:'50%' }} />
 
                 <div className='profile-content'>
-                    <h4 style={{ fontSize: '16px', fontWeight: '600' }}>{user?.name}</h4>
-                    <p><Icons.Email className='icon' />{user?.email}</p>
-                    <p><Icons.Phone className='icon' />{user?.mobile}</p>
+                    <h4 style={{ fontSize: '16px', fontWeight: '600' }}>{profile.name}</h4>
+                    <p><Icons.Email className='icon' />{profile.email}</p>
+                    <p><Icons.Phone className='icon' />{profile.mobile}</p>
                 </div>
                 <Link to="/admin/edit-profile/user" style={{ fontSize: '20px', color: 'gray', position: 'absolute', right: '15px', top: '10px', }}><Icons.Edit /></Link>
             </div>

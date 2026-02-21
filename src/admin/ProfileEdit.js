@@ -2,13 +2,16 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from '../Context/AuthUser'
 import BackButton from '../front/components/BackButton';
-import { toast } from "react-toastify";
 import { Icons } from '../front/components/Icons';
 import axiosClient from '../front/axiosClient';
+import Popup from '../components/Popup';
+
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 export default function ProfileEdit() {
     const navigate = useNavigate();
+    const [alert, setAlert] = useState(null);
+    const fileInputRef = useRef(null);
 
     const { type } = useParams();
     const { user, avatar } = useAuth();
@@ -18,7 +21,6 @@ export default function ProfileEdit() {
     const [preview, setPreview] = useState(null);
     const [ProImage, setProImage] = useState(null);
     const [bannerImage, setBannerImage] = useState(null);
-    const fileInputRef = useRef();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [mobile, setMobile] = useState("");
@@ -35,6 +37,9 @@ export default function ProfileEdit() {
     const [newPass, setNewPass] = useState("");
     const [cPass, setCPass] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [showOldPassword, setShowOldPassword] = useState(false);
+    const [weekOff, setWeekOff] = useState();
+    const [homeService, setHomeService] = useState(false);
 
     const validator = () => {
         const errors = {};
@@ -77,36 +82,37 @@ export default function ProfileEdit() {
         return errors;
     }
 
+    const fetchUser = async () => {
+        if (!user?.id) return;
+
+        try {
+            const response = await axiosClient.get(`/auth/profile.php?id=${user.id}`);
+            const profile = response.data.data[0];
+
+            setName(profile.name);
+            setEmail(profile.email);
+            setMobile(profile.mobile);
+            setProImage(profile.profile_image);
+            setShopname(profile.shop_name);
+            setBannerImage(profile.banner_image);
+            setAddress(profile.address);
+            setState(profile.state);
+            setCity(profile.city);
+            setPincode(profile.pincode);
+            setExperience(profile.experience);
+            setSpecialization(profile.specialization);
+            setOpentime(profile.shop_open_time);
+            setClosetime(profile.shop_close_time);
+            setWeekOff(profile.week_off);
+            setHomeService(profile.home_service == 1);
+        } catch (err) {
+            setErrors("Whoops, something went wrong!");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchUser = async () => {
-            if (!user?.id) return;
-
-            try {
-                const response = await axiosClient.get(`/auth/profile.php?id=${user.id}`);
-                const profile = response.data.data[0];
-                console.log('profile', response);
-                setName(profile.name);
-                setEmail(profile.email);
-                setMobile(profile.mobile);
-                setProImage(profile.profile_image);
-                setShopname(profile.shop_name);
-                setBannerImage(profile.banner_image);
-                setAddress(profile.address);
-                setState(profile.state);
-                setCity(profile.city);
-                setPincode(profile.pincode);
-                setExperience(profile.experience);
-                setSpecialization(profile.specialization);
-                setOpentime(profile.shop_open_time);
-                setClosetime(profile.shop_close_time);
-
-            } catch (err) {
-                setErrors("Whoops, something went wrong!");
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchUser();
     }, [user]);
 
@@ -124,7 +130,7 @@ export default function ProfileEdit() {
         setErrors(validateErrors);
 
         const formData = new FormData();
-        if (type === "barber") {
+        if (type === "user") {
             formData.append("name", name);
             formData.append("email", email);
             formData.append("mobile", mobile);
@@ -141,6 +147,8 @@ export default function ProfileEdit() {
             formData.append('specialization', specialization)
             formData.append('shop_open_time', opentime)
             formData.append('shop_close_time', closetime)
+            formData.append('week_off', weekOff)
+            formData.append('home_service', homeService ? 1 : 0)
 
             if (image) {
                 formData.append("banner_image", image);
@@ -150,20 +158,26 @@ export default function ProfileEdit() {
             formData.append('new_password', newPass)
         }
 
-        const { data } = await axiosClient.post(
-            `/auth/edit_profile.php?id=${user.id}&type=${type}`,
-            formData,
-        )
-        if (data.status === 'success') {
-            navigate(-1);
-            toast.success(data.message);
-        } else {
-            toast.error(data.message);
+        if(Object.keys(errors).length === 0){
+            const { data } = await axiosClient.post(
+                `/auth/edit_profile.php?id=${user.id}&type=${type}`,
+                formData,
+            )
+            if (data.status === 'success') {
+                // navigate(-1);
+                setAlert({ type: "success", message: data.message });
+            } else {
+                setAlert({ type: "error", message: data.message });
+                fetchUser();
+            }
         }
     }
 
     return (
         <div className='edit-profile grid'>
+            {alert && (
+                <Popup type={alert.type} message={alert.message} />
+            )}
             {type === 'user' && (
                 <div className='shop-card '>
                     <div className='card-header'>
@@ -178,7 +192,7 @@ export default function ProfileEdit() {
                                     ? `${baseURL}/auth/uploads/profiles/${ProImage}`
                                     : avatar
                         } onClick={() => fileInputRef.current.click()} alt="profile"
-                            style={{ height: '220px', marginBottom: '25px', position: 'relative', left: '50px' }} />
+                            style={{ height: '220px', marginBottom: '25px', position: 'relative', left: '50px', borderRadius:'50%'}} />
                         <input type="file" accept="image/*" ref={fileInputRef} style={{ display: "none" }} onChange={handleImageChange} />
 
                         <div className="group-input">
@@ -264,15 +278,51 @@ export default function ProfileEdit() {
                             <input type="text" value={closetime} onChange={(e) => setClosetime(e.target.value)} placeholder="Enter shop close time" />
                             {errors.closetime && <span style={{ color: "red", fontSize: "14px", }}>{errors.closetime}</span>}
                         </div>
+                        <div className="col-4">
+                            <div className="group-input">
+                                <label>Shop Week Off</label>
+                                <select name="week_off" value={weekOff} onChange={(e) => setWeekOff(e.target.value)}>
+                                    <option value="">Select week off</option>
+                                    <option value="Sunday">Sunday</option>
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                </select>
+                                {errors.weekOff && (<span style={{ color: "red", fontSize: "14px" }}>{errors.weekOff}</span>)}
+                            </div>
+                        </div>
+                        <div className="col-4">
+                            <div className="group-input">
+                                <label className='checkbox'>
+                                    <input
+                                        type="checkbox"
+                                        name="home_service"
+                                        checked={homeService}
+                                        onChange={(e) => setHomeService(e.target.checked)}
+                                    />
+                                    &nbsp; I am available for home service
+                                </label>
+
+                                {errors.homeService && (
+                                    <span style={{ color: "red", fontSize: "14px" }}>
+                                        {errors.homeService}
+                                    </span>
+                                )}
+                            </div>
+
+                        </div>
                         <img className="profile" src={
                             preview
                                 ? preview
-                                : ProImage
+                                : bannerImage
                                     ? `${baseURL}/auth/uploads/banners/${bannerImage}`
                                     : `${baseURL}/auth/uploads/banners/default_banner.png`
                         } onClick={() => fileInputRef.current.click()} alt="banner"
                             style={{ height: '155px', width: "100%", marginBottom: '25px', position: 'relative' }} />
-                        <input type="file" accept="image/*" onChange={handleImageChange} />
+                        <input type="file" ref={fileInputRef} accept="image/*" onChange={handleImageChange} />
 
                         <div className="group-input">
                             <button type="submit" className="submit-btn">Submit</button>
@@ -290,7 +340,10 @@ export default function ProfileEdit() {
                     <form className='grid' onSubmit={handelUpdate}>
                         <div className="group-input">
                             <label>Old Password</label>
-                            <input type="password" value={oldPass} onChange={(e) => setOldPass(e.target.value)} placeholder="Enter your old password" />
+                            <div style={{ position: "relative" }}>
+                                <input type={showOldPassword ? "text" : "password"} value={oldPass} onChange={(e) => setOldPass(e.target.value)} placeholder="Enter your old password" />
+                                <span className="toggelBtn" onClick={() => setShowOldPassword(!showOldPassword)}>{showOldPassword ? <Icons.EyeOff /> : <Icons.Eye />}</span>
+                            </div>
                             {errors.oldPass && <span style={{ color: "red", fontSize: "14px", }}>{errors.oldPass}</span>}
                         </div>
 
@@ -306,7 +359,7 @@ export default function ProfileEdit() {
                         <div className="group-input">
                             <label>Conform password</label>
                             <div style={{ position: "relative" }}>
-                                <input type={showPassword ? "text" : "password"} value={cPass} onChange={(e) => setCPass(e.target.value)} placeholder="Conform your new password" />
+                                <input type="password" value={cPass} onChange={(e) => setCPass(e.target.value)} placeholder="Conform your new password" />
                                 {/* <span className="toggelBtn" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <Icons.EyeOff /> : <Icons.Eye />}</span> */}
                             </div>
                             {errors.cPass && <span style={{ color: "red", fontSize: "14px", }}>{errors.cPass}</span>}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
-import TextLogo from '../../images/white-logo.png'; // ✅ import image
+import TextLogo from '../../images/bookmybarber-logo.png'; // ✅ import image
 
 const content = [
     {
@@ -77,7 +77,6 @@ const Hero = () => {
     }, [charIndex, mode, index]);
 
     const toggleMenu = () => {
-        console.log('inside toggel');
         setMenuOpen(!menuOpen);
     };
 

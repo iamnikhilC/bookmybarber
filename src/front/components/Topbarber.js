@@ -3,47 +3,55 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import defaultBanner from '../../images/default_banner.png'; // ✅ import image
 import defaultProfile from '../../images/logo.png'; // ✅ import image
-
+import BarberRating from "../../admin/Rating/BarberRating";
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const Topbarber = () => {
-    const [barbers, setBarbers] = useState([
-        {
-            shop_name: "Classic Cuts Barbershop",
-            name: "Rohit Sharma",
-            rating: 5,
-            banner: "https://images.pexels.com/photos/1817636/pexels-photo-1817636.jpeg",
-            profile: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg"
-        },
+    const [barbers, setBarbers] = useState([]);
 
-        {
-            shop_name: "Royal Gents Salon",
-            name: "Vikram Patel",
-            rating: 5,
-            banner: "https://images.pexels.com/photos/3998411/pexels-photo-3998411.jpeg",
-            profile: "https://images.pexels.com/photos/1704489/pexels-photo-1704489.jpeg"
-        },
-        {
-            shop_name: "The Beard Hub",
-            name: "Sahil Verma",
-            rating: 3,
-            banner: "https://images.pexels.com/photos/3998420/pexels-photo-3998420.jpeg",
-            profile: "https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg"
-        },
-        {
-            shop_name: "Fresh Look Salon",
-            name: "Karan Singh",
-            rating: 4,
-            banner: "https://images.pexels.com/photos/1817638/pexels-photo-1817638.jpeg",
-            profile: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg"
-        }
-    ]);
+    if(!barbers){
+        setBarbers([
+            {
+                shop_name: "Classic Cuts Barbershop",
+                name: "Rohit Sharma",
+                rating: 5,
+                banner: "https://images.pexels.com/photos/1817636/pexels-photo-1817636.jpeg",
+                profile: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg"
+            },
+    
+            {
+                shop_name: "Royal Gents Salon",
+                name: "Vikram Patel",
+                rating: 5,
+                banner: "https://images.pexels.com/photos/3998411/pexels-photo-3998411.jpeg",
+                profile: "https://images.pexels.com/photos/1704489/pexels-photo-1704489.jpeg"
+            },
+            {
+                shop_name: "The Beard Hub",
+                name: "Sahil Verma",
+                rating: 3,
+                banner: "https://images.pexels.com/photos/3998420/pexels-photo-3998420.jpeg",
+                profile: "https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg"
+            },
+            {
+                shop_name: "Fresh Look Salon",
+                name: "Karan Singh",
+                rating: 4,
+                banner: "https://images.pexels.com/photos/1817638/pexels-photo-1817638.jpeg",
+                profile: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg"
+            }
+        ]);
+    }
+    const getAvatarUrl = (name) =>
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(
+        name || "User"
+    )}&background=random&color=fff&rounded=true`;
 
     // Fetch data once when the component mounts
     useEffect(() => {
         const getTopBarbers = async () => {
             try {
-                const response = await axios.get(`${baseURL}/front/topbarbers.php`);
+                const response = await axios.get(`${baseURL}/front/topbarbers.php?type=top`);
                 if (response.data && response.data.barbers) {
                     setBarbers(response.data.barbers);
                 }
@@ -71,7 +79,7 @@ const Topbarber = () => {
                                 <img className="profile" src={
                                     barber?.profile_image
                                         ? `${baseURL}/auth/uploads/profiles/${barber.profile_image}`
-                                        : defaultProfile} alt={barber.shop_name || "Barber Banner"} />
+                                        : getAvatarUrl(barber.name)} alt={barber.shop_name || "Barber Banner"} />
                                 
                             </div>
                             <div className="card-body">
@@ -84,12 +92,7 @@ const Topbarber = () => {
                                     Excellent service! The barber was professional and friendly. I loved the haircut — exactly what I asked for!
                                 </p>
                                 <div className="rating-stars">
-                                    {[...Array(5)].map((_, i) => (
-                                        <span
-                                            key={i}
-                                            className={`star ${i < (barber.rating || 0) ? "filled" : ""}`}
-                                        ></span>
-                                    ))}
+                                    <BarberRating rating={barber.rating} totalReviews={barber.total_reviews}/>
                                 </div>
                                 {/* <Link to="admin/view-barbers" className="bg-red-500 text-white px-4 py-2 rounded">View</Link> */}
                             </div>

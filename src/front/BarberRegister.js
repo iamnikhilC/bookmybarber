@@ -1,4 +1,4 @@
-import React, { useState, Link } from "react";
+import React, { useState, Link, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ import { ValidatePassword, EyeIcon } from "../utils/validations";
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const BarberRegister = () => {
-	const navigate = useNavigate();
+    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [mobile, setMobile] = useState('');
@@ -23,6 +23,10 @@ const BarberRegister = () => {
     const [cpassword, setCpassword] = useState('');
     const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
+    const [openTime, setOpenTime] = useState();
+    const [closeTime, setcloseTime] = useState();
+    const [weekOff, setWeekOff] = useState();
+    const [homeService, setHomeService] = useState(false);
 
     const validator = () => {
         const errors = {};
@@ -34,6 +38,9 @@ const BarberRegister = () => {
         if (!pincode.trim()) errors.pincode = 'Pincode is required!';
         if (!city.trim()) errors.city = 'City is required!';
         if (!state.trim()) errors.state = 'State is required!';
+        if (!weekOff.trim()) errors.weekOff = 'Week Off is required!';
+        if (!openTime.trim()) errors.openTime = 'Open Time is required!';
+        if (!closeTime.trim()) errors.closeTime = 'Close Time is required!';
         if (!email.trim()) errors.email = 'Email is required!';
         else if (!/\S+@\S+\.\S+/.test(email)) errors.email = "Email is invalid";
 
@@ -46,15 +53,20 @@ const BarberRegister = () => {
         if (!valid) errors.password = PassErrors;
         return errors;
     }
+
     const handelRegistration = async (e) => {
         e.preventDefault();
         const validateErrors = validator();
         setErrors(validateErrors);
-
         if (Object.keys(validateErrors).length === 0) {
             const { data } = await axios.post(
                 `${baseURL}/auth/barber_resgistration.php`,
-                { name, shopName, experience, specialization, address, pincode, city, state, email, mobile, password, cpassword },
+                {
+                    name, shopName, experience, specialization,
+                    openTime, closeTime, address, pincode, city,
+                    state, email, mobile, password, cpassword,
+                    weekOff, homeService
+                },
                 { headers: { "Content-Type": "application/json" } }
             )
             if (data.status === 'success') {
@@ -72,7 +84,9 @@ const BarberRegister = () => {
                 setCpassword('');
                 setErrors('');
                 setShowPassword('');
-				navigate('/admin');
+                setOpenTime('');
+                setcloseTime('');
+                navigate('/admin');
                 toast.success(data.message);
             } else {
                 toast.error(data.message);
@@ -135,6 +149,56 @@ const BarberRegister = () => {
                                             <input type="text" name="specialization" placeholder="What's your Speciality ?" value={specialization} onChange={(e) => setSpecialization(e.target.value)} />
                                             {errors.specialization && <span style={{ color: "red", fontSize: "14px" }}>{errors.specialization}</span>}
                                         </div>
+                                    </div>
+                                    <div className="col-4">
+                                        <div className="group-input">
+                                            <label>Shop Open Time</label>
+                                            <input type="text" name="open_type" placeholder="When you open the shop ?" value={openTime} onChange={(e) => setOpenTime(e.target.value)} />
+                                            {errors.openTime && <span style={{ color: "red", fontSize: "14px" }}>{errors.openTime}</span>}
+                                        </div>
+                                    </div>
+                                    <div className="col-4">
+                                        <div className="group-input">
+                                            <label>Shop Close Time</label>
+                                            <input type="text" name="close_type" placeholder="When you close the shop ?" value={closeTime} onChange={(e) => setcloseTime(e.target.value)} />
+                                            {errors.closeTime && <span style={{ color: "red", fontSize: "14px" }}>{errors.closeTime}</span>}
+                                        </div>
+                                    </div>
+                                    <div className="col-4">
+                                        <div className="group-input">
+                                            <label>Shop Week Off</label>
+                                            <select name="week_off" value={weekOff} onChange={(e) => setWeekOff(e.target.value)}>
+                                                <option value="">Select week off</option>
+                                                <option value="Sunday">Sunday</option>
+                                                <option value="Monday">Monday</option>
+                                                <option value="Tuesday">Tuesday</option>
+                                                <option value="Wednesday">Wednesday</option>
+                                                <option value="Thursday">Thursday</option>
+                                                <option value="Friday">Friday</option>
+                                                <option value="Saturday">Saturday</option>
+                                            </select>
+                                            {errors.weekOff && (<span style={{ color: "red", fontSize: "14px" }}>{errors.weekOff}</span>)}
+                                        </div>
+                                    </div>
+                                    <div className="col-4">
+                                        <div className="group-input">
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="home_service"
+                                                    checked={homeService}
+                                                    onChange={(e) => setHomeService(e.target.checked)}
+                                                />
+                                                &nbsp; I am available for home service
+                                            </label>
+
+                                            {errors.homeService && (
+                                                <span style={{ color: "red", fontSize: "14px" }}>
+                                                    {errors.homeService}
+                                                </span>
+                                            )}
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div className="row">

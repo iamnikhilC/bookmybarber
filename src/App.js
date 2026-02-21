@@ -21,8 +21,15 @@ import Bookings from './admin/Barber/Bookings';
 import Profile from './admin/Profile';
 import ProfileEdit from './admin/ProfileEdit';
 import Notifications from './admin/Nofications';
+import RateBarber from './admin/Rating/RateBarber';
 import Logout from './front/Logout';
+import ForgotPassword from './front/ForgotPassword';
 import NotFound from './front/NotFound';
+import ViewPayments from './admin/Payments/ViewPayments';
+import ViewReviews from './admin/Rating/ViewReviews';
+import PrivacyPolicy from './admin/PrivacyPolicy';
+import TermsAndCond from './admin/TermsAndCond';
+import Announcment from './front/Announcment';
 function App() {
 	return (
 		<>
@@ -42,12 +49,16 @@ function App() {
 				<Route path="login" element={<Login />} />
 				<Route path="register" element={<Register />} />
 				<Route path="barber-register" element={<BarberRegister />} />
+				<Route path="forgot-password" element={<ForgotPassword />} />
+				<Route path="privacy-policy" element={<PrivacyPolicy/>} />
+				<Route path="terms-conditions" element={<TermsAndCond/>} />
+				<Route path='/' element={<Announcment />} />
 
 				{/* Front layout */}
-				<Route path="/" element={<FrontLayout />}>
+				{/* <Route path="/" element={<FrontLayout />}>
 					<Route index element={<Home />} />
 					<Route path="logout" element={<Logout />} />
-				</Route>
+				</Route> */}
 
 				{/* Admin layout */}
 				<Route element={<ProtectedRoute />}>
@@ -72,6 +83,11 @@ function App() {
 						<Route path="edit-service/:id" element={<Edit />} />
 						<Route path="view-barbers" element={<ViewAllBarbers />} />
 						<Route path="notifications" element={<Notifications/>} />
+						<Route path="rate-barber" element={<RateBarber/>} />
+						<Route path="view-reviews" element={<ViewReviews/>} />
+						<Route path="view-reviews/:bid" element={<ViewReviews/>} />
+						<Route path="payments" element={<ViewPayments/>} />
+
 					</Route>
 				</Route>
 

@@ -11,7 +11,7 @@ const NavBar = () => {
     const unreadCount = notification?.filter(
         n => n.is_read === 0
     ).length;
-console.log('unreadCount', unreadCount);
+    
     return (
         <div className="navbar">
             <div className="navbar-logo">

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Youtube } from "lucide-react";
-import Logo from '../../images/white-logo.png'; // ✅ import image
+import Logo from '../../images/bookmybarber-logo.png'; // ✅ import image
 
 export default function Footer() {
     return (
@@ -31,9 +31,9 @@ export default function Footer() {
                 <div>
                     <h3 className="text-lg font-semibold mb-4">Support</h3>
                     <ul className="space-y-2 text-gray-300">
-                        <li><Link to="/privacy" className="hover:text-white">Privacy Policy</Link></li>
-                        <li><Link to="/terms" className="hover:text-white">Terms & Conditions</Link></li>
-                        <li><Link to="/faq" className="hover:text-white">FAQ</Link></li>
+                        <li><Link to="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
+                        <li><Link to="/terms-conditions" className="hover:text-white">Terms & Conditions</Link></li>
+                        {/* <li><Link to="/faq" className="hover:text-white">FAQ</Link></li> */}
                     </ul>
                 </div>
 
@@ -55,8 +55,8 @@ export default function Footer() {
 
             </div>
 
-            <div className="text-center text-gray-400 text-sm mt-10 border-t border-white/20 pt-5">
-                © {new Date().getFullYear()} MyBarber. All rights reserved.
+            <div className="rights-section">
+                © {new Date().getFullYear()} bookmybarber.com. All rights reserved.
             </div>
         </section>
     );

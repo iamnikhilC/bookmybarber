@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import BackButton from '../front/components/BackButton';
 import { Icons } from '../front/components/Icons';
 import { useAuth } from '../Context/AuthUser';
+import RateBarber from '../admin/Rating/RateBarber';
 const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const BookingList = () => {
@@ -50,6 +51,11 @@ const BookingList = () => {
                                 <p><Icons.Wallet className="icon"/>₹ {b.price.toFixed(2)}</p>
                                 <p></p>
                                 <button onClick={() => cancelBooking(b.id)}>Cancel</button>
+                                <RateBarber
+                                barberId={booking.barber_id}
+                                bookingId={booking.id}
+                                onSuccess={refetchBookings}
+                              />
                             </div>
                         ))}
                     </div>
