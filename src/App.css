@@ -2761,3 +2761,52 @@ section.footer .container {
     gap: 10px;
   }
 }
+
+/* ===== Offers Highlight Box ===== */
+.cs-offers {
+	margin: 20px 0;
+	padding: 18px 22px;
+	border-radius: 12px;
+	background: linear-gradient(135deg, rgba(250, 204, 21, 0.1), rgba(0, 0, 0, 0.4));
+	border: 1px solid rgba(250, 204, 21, 0.4);
+	text-align: left;
+	max-width: 520px;
+  }
+  
+  .cs-offers li {
+	list-style: none;
+	margin: 10px 0;
+	font-size: 16px;
+	font-weight: 500;
+	position: relative;
+	padding-left: 28px;
+  }
+  
+  /* Gold check icon */
+  .cs-offers li::before {
+	content: "★";
+	position: absolute;
+	left: 0;
+	top: 0;
+	color: #facc15;
+	font-size: 18px;
+  }
+  
+  /* Highlight first 2 premium offers */
+  .cs-offers li:nth-child(1),
+  .cs-offers li:nth-child(2) {
+	font-weight: 700;
+	color: #fde047;
+  }
+  
+  /* ===== Mobile Responsive ===== */
+  @media (max-width: 768px) {
+	.cs-offers {
+	  padding: 16px;
+	  font-size: 14px;
+	}
+  
+	.cs-offers li {
+	  font-size: 14px;
+	}
+  }
