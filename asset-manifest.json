@@ -1,8 +1,9 @@
 {
   "files": {
-    "main.css": "/bookmybarber/static/css/main.fc730e6a.css",
-    "main.js": "/bookmybarber/static/js/main.3e4e5aa9.js",
+    "main.css": "/bookmybarber/static/css/main.58d50a42.css",
+    "main.js": "/bookmybarber/static/js/main.5cc6a534.js",
     "static/js/453.670e15c7.chunk.js": "/bookmybarber/static/js/453.670e15c7.chunk.js",
+    "static/media/background-pattern.png": "/bookmybarber/static/media/background-pattern.b6b78c7162b0fd2bc36b.png",
     "static/media/real-time.png": "/bookmybarber/static/media/real-time.355c6807618e4536e7f9.png",
     "static/media/earn.png": "/bookmybarber/static/media/earn.99a22da88f285ea51337.png",
     "static/media/auth.png": "/bookmybarber/static/media/auth.e7ed525cd9bc4aec0a02.png",
@@ -20,16 +21,16 @@
     "static/media/about-us.webp": "/bookmybarber/static/media/about-us.6aed3f7b7c5654549b64.webp",
     "static/media/empty.png": "/bookmybarber/static/media/empty.c57fde55266f31f1abc7.png",
     "static/media/hero_banner.jpg": "/bookmybarber/static/media/hero_banner.b045014f428c5260d287.jpg",
-    "static/media/logo.png": "/bookmybarber/static/media/logo.01a8fe371dfd9d42515d.png",
-    "static/media/white-logo.png": "/bookmybarber/static/media/white-logo.f500f00b97a78fdedc17.png",
+    "static/media/bookmybarber-logo.png": "/bookmybarber/static/media/bookmybarber-logo.dab9e44194bcb0432098.png",
+    "static/media/logo.png": "/bookmybarber/static/media/logo.69a6f8fd1cd312129968.png",
     "static/media/register-shop.webp": "/bookmybarber/static/media/register-shop.da58418b32deee25d5af.webp",
     "index.html": "/bookmybarber/index.html",
-    "main.fc730e6a.css.map": "/bookmybarber/static/css/main.fc730e6a.css.map",
-    "main.3e4e5aa9.js.map": "/bookmybarber/static/js/main.3e4e5aa9.js.map",
+    "main.58d50a42.css.map": "/bookmybarber/static/css/main.58d50a42.css.map",
+    "main.5cc6a534.js.map": "/bookmybarber/static/js/main.5cc6a534.js.map",
     "453.670e15c7.chunk.js.map": "/bookmybarber/static/js/453.670e15c7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fc730e6a.css",
-    "static/js/main.3e4e5aa9.js"
+    "static/css/main.58d50a42.css",
+    "static/js/main.5cc6a534.js"
   ]
 }
