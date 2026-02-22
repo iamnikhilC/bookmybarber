@@ -29,7 +29,6 @@ import ViewPayments from './admin/Payments/ViewPayments';
 import ViewReviews from './admin/Rating/ViewReviews';
 import PrivacyPolicy from './admin/PrivacyPolicy';
 import TermsAndCond from './admin/TermsAndCond';
-import Announcment from './front/Announcment';
 function App() {
 	return (
 		<>
@@ -52,13 +51,13 @@ function App() {
 				<Route path="forgot-password" element={<ForgotPassword />} />
 				<Route path="privacy-policy" element={<PrivacyPolicy/>} />
 				<Route path="terms-conditions" element={<TermsAndCond/>} />
-				<Route path='/' element={<Announcment />} />
+				{/* <Route path='/' element={<Announcment />} /> */}
 
 				{/* Front layout */}
-				{/* <Route path="/" element={<FrontLayout />}>
+				<Route path="/" element={<FrontLayout />}>
 					<Route index element={<Home />} />
 					<Route path="logout" element={<Logout />} />
-				</Route> */}
+				</Route>
 
 				{/* Admin layout */}
 				<Route element={<ProtectedRoute />}>

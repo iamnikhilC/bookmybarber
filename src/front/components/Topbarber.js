@@ -103,7 +103,7 @@ const Topbarber = () => {
                 )}
             </div>
             <div className="topbarber-grid" style={{ marginTop: "30px" }}>
-                <Link to="/view-barbers" className="btn btn-primary">View All</Link>
+                {/* <Link to="/view-barbers" className="btn btn-primary">View All</Link> */}
             </div>
         </section>
     );

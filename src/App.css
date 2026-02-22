@@ -970,7 +970,7 @@ section.services h3,
 	font-size: 16px;
 	font-weight: 500;
 	position: relative;
-	top: -40px;
+	/* top: -40px; */
 	background-color: #1A1A1A;
 }
 

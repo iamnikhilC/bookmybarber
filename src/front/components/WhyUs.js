@@ -67,7 +67,7 @@ function WhyUs() {
                                     <strong>Ratings & trusted professionals</strong>
                                 </div>
                             </div>
-                            <div className='row'><Link to="/view-barbers" className="btn">Book Now</Link></div>
+                            {/* <div className='row'><Link to="/view-barbers" className="btn">Book Now</Link></div> */}
                         </div>
                     </>
                 )}
@@ -102,7 +102,7 @@ function WhyUs() {
                                 </div>
                             </div>
                         </div>
-                        <div className='row'><Link to="/barber-register" className="btn">Register Your Shop</Link></div>
+                        {/* <div className='row'><Link to="/barber-register" className="btn">Register Your Shop</Link></div> */}
                     </>
                 )}
             </div>

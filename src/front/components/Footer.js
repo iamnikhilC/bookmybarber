@@ -56,7 +56,7 @@ export default function Footer() {
             </div>
 
             <div className="rights-section">
-                © {new Date().getFullYear()} bookmybarber.com. All rights reserved.
+                © {new Date().getFullYear()} BookMyBarberNow. All rights reserved.
             </div>
         </section>
     );

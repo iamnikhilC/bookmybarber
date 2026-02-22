@@ -38,8 +38,9 @@ const HowItWorks = () => {
                     <div className="card">
                         <img src={payment} alt="payment" />
 
-                        <h4>Make Payment</h4>
-                        <p>Complete your booking with fast, secure, and hassle-free online payment.</p>
+                        <h4>Pay After Get Serve</h4>
+                        {/* <p>Complete your booking with fast, secure, and hassle-free online payment.</p> */}
+                        <p>No need to pay first, pay only get serve.</p>
                     </div>
                 </div>
             </div>

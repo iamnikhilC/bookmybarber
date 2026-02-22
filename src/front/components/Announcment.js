@@ -1,5 +1,5 @@
 import React from "react";
-import TextLogo from "../images/bookmybarber-logo.png";
+import TextLogo from "../../images/bookmybarber-logo.png";
 import { Link } from "react-router-dom";
 
 export default function Announcment() {
@@ -47,10 +47,7 @@ export default function Announcment() {
                     and avoiding long waiting queues.
                 </p>
 
-                <p>
-                    Fill in the details below to join our exclusive waiting list and be
-                    the first to get exciting offers, early access, and special benefits.
-                </p>
+               
 
                 <ul className="cs-offers">
                     <li>1st barber will get lifetime free membership</li>
@@ -58,6 +55,10 @@ export default function Announcment() {
                     {/* <li>If you register now, you will get 75% off</li> */}
                     <li>Get 30 days free</li>
                 </ul>
+                <p  className="cs-subtitle">
+                    Fill in the details below to join our exclusive waiting list and be
+                    the first to get exciting offers, early access, and special benefits.
+                </p>
 
                 {/* CTA Button */}
                 <div className="cs-form">

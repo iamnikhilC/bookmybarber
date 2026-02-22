@@ -9,10 +9,11 @@ import MissionVission from "./components/MissionVission";
 import AboutUs from "./components/AboutUs";
 import WhyUs from "./components/WhyUs";
 import OurFeartures from "./components/OurFeatures";
+import Announcment from "./components/Announcment";
 const Home = () => {
     return (
         <div className="font-roboto">
-            <Hero/>
+            <Announcment/>
             <Topbarber/>
             <WhyUs/>
             <HowItWorks/>
@@ -21,7 +22,7 @@ const Home = () => {
             {/* How It Works */}
             <AboutUs/>
             {/* CTA Section */}
-            <CTA/>
+            {/* <CTA/> */}
 
            
         </div>
